@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    
+    <simple-method method-name="createEmployee" short-description="Create Employee">
+        
+        
+        <entity-one entity-name="Employee" value-field="record">
+            <field-map field-name="employeeId" from-field="parameters.employeeId"/>
+        </entity-one>
+        
+
+        <make-value entity-name="Employee" value-field="createRecord"/>
+        <if-empty field="record">
+            <set-nonpk-fields map="parameters" value-field="createRecord"/>
+            <set-pk-fields map="parameters" value-field="createRecord"/>
+            <make-next-seq-id value-field="createRecord" seq-field-name="employeeId"/>
+            <field-to-result field="createRecord.employeeId" result-name="employeeId"/>
+            <create-value value-field="createRecord"/>
+        </if-empty>
+
+        <if-not-empty field="record">
+            <set field="createRecord.employeeId" from-field="employeeId"/>
+            <set-pk-fields map="parameters" value-field="createRecord"/>
+            <set-nonpk-fields map="parameters" value-field="createRecord"/>
+            <field-to-result field="createRecord.employeeId" result-name="employeeId"/>
+            <store-value value-field="createRecord"/>
+        </if-not-empty>
+
+
+    </simple-method>
+</simple-methods>
