@@ -15,7 +15,7 @@
         <if-empty field="record">
             <set-nonpk-fields map="parameters" value-field="createRecord"/>
             <set-pk-fields map="parameters" value-field="createRecord"/>
-            <make-next-seq-id value-field="createRecord" seq-field-name="employeeId" numeric-padding="2"/>
+            <make-next-seq-id value-field="createRecord" seq-field-name="employeeId"/>
             <field-to-result field="createRecord.employeeId" result-name="employeeId"/>
             <create-value value-field="createRecord"/>
         </if-empty>
